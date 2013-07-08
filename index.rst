@@ -28,7 +28,7 @@ Rest in peace, mom.
 
 -- Rafael
 
-PS: This address used to host her blog, that will be archived in a subdomain, soon.
+P.S.: This address used to host her blog, that will be archived in a subdomain, soon.
 
 .. raw:: html
 

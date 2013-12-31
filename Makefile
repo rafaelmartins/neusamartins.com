@@ -6,17 +6,29 @@
 #
 
 RST2HTML = rst2html.py
+GITHUB_PAGES_PUBLISH = github-pages-publish
 
 .PHONY: all
-all: index.html
+all: build/index.html build/static/mae.jpg
 
-%.html: %.rst static/html4css1.css static/style.css static/mae.jpg
-	$(RST2HTML) --generator --date --time --cloak-email-addresses --source-link \
+build/static/%: static/%
+	mkdir -p build/static
+	cp -v $< $@
+
+build/%.html: %.rst static/html4css1.css static/style.css
+	mkdir -p build
+	$(RST2HTML) --cloak-email-addresses \
 		--embed-stylesheet --initial-header-level=2 \
 		--stylesheet-path=static/html4css1.css,static/style.css \
 		--language=pt_br $< $@
 
 .PHONY: clean
 clean:
-	$(RM) -v *.html
+	$(RM) -rv build/
 
+.PHONY: publish
+publish: all
+	$(GITHUB_PAGES_PUBLISH) --verbose \
+		--cname neusamartins.com \
+		--message 'Updated webpage' \
+		. build
